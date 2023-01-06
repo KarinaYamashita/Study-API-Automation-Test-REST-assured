@@ -19,7 +19,6 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import study.automation.restassured.Entities.User;
 
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserTests {
     private static User user;
@@ -27,23 +26,25 @@ public class UserTests {
     public static RequestSpecification request;
 
     @BeforeAll
-    public static void setup(){
+    public static void setup() {
         RestAssured.baseURI = "https://petstore.swagger.io/v2";
         faker = new Faker();
 
         user = new User(
-            faker.name().username(),
-            faker.name().firstName(),
-            faker.name().lastName(),
-            faker.internet().safeEmailAddress(),
-            faker.internet().password(8, 18),
-            faker.phoneNumber().toString());
+                faker.name().username(),
+                faker.name().firstName(),
+                faker.name().lastName(),
+                faker.internet().safeEmailAddress(),
+                faker.internet().password(8, 18),
+                faker.phoneNumber().toString());
     }
 
     @BeforeEach
-    public void setRequest(){
-        request = RestAssured.given().config(RestAssured.config().logConfig(LogConfig.logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
-                .header("api-key","special-key")
+    public void setRequest() {
+        request = RestAssured.given()
+                .config(RestAssured.config()
+                        .logConfig(LogConfig.logConfig().enableLoggingOfRequestAndResponseIfValidationFails()))
+                .header("api-key", "special-key")
                 .contentType(ContentType.JSON);
     }
 
@@ -51,17 +52,16 @@ public class UserTests {
     @Order(1)
     public void CreateNewUser_WithValidData_ReturnOk() {
         request
-            .body(user)
-            .when()
-            .post("/user")
-            .then()
-            .assertThat().statusCode(200).and()
+                .body(user)
+                .when()
+                .post("/user")
+                .then()
+                .assertThat().statusCode(200).and()
                 .body("code", Matchers.equalTo(200))
                 .body("type", Matchers.equalTo("unknown"))
                 .body("message", Matchers.isA(String.class))
-                .body("size()",Matchers.equalTo(3));
+                .body("size()", Matchers.equalTo(3));
     }
-
 
     @Test
     @Order(2)
@@ -107,11 +107,11 @@ public class UserTests {
     @Test
     public void CreateNewUser_WithInvalidData_ReturnBadRequest() {
         Response response = request
-            .body("teste")
-            .when()
-            .post("/user")
-            .then()
-            .extract().response();
+                .body("teste")
+                .when()
+                .post("/user")
+                .then()
+                .extract().response();
         Assertions.assertNotNull(response);
         Assertions.assertEquals(400, response.statusCode());
         Assertions.assertTrue(response.getBody().asPrettyString().contains("unknown"));
