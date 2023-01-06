@@ -16,7 +16,7 @@ Esse repositório contém uma palicação para testes de performace da API : **[
 
 - JUnit
 
-- Request Specific
+- Request Specification
 
 - Matchers
 
