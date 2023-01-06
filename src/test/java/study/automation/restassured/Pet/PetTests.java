@@ -100,7 +100,7 @@ public class PetTests {
                 .post("/pet")
                 .then()
                 .extract().response();
-        Assertions.assertNotNull(response);
+        Assertions.assertNotNull(response); 
         Assertions.assertEquals(400, response.statusCode());
         Assertions.assertTrue(response.getBody().asPrettyString().contains("unknown"));
         Assertions.assertEquals(3, response.body().jsonPath().getMap("$").size());

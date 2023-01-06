@@ -13,7 +13,7 @@ public class Pet {
     private Integer id;
     private Category category;
     private String name;
-    private String[] photoUrls;
+    private String[] photoUrls; 
     private PetTag[] tags;
     private String status;
    

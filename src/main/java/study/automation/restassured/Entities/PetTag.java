@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor
+@AllArgsConstructor 
 @Data
 public class PetTag {
     private Integer id;
