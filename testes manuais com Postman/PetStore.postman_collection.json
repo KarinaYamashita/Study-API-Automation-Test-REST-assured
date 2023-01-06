@@ -1,0 +1,780 @@
+{
+	"info": {
+		"_postman_id": "42add077-27bd-49c7-9e95-413fef2d1ee9",
+		"name": "PetStore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20955981"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var req = JSON.parse(request.data)",
+									"console.log(req.username)",
+									"pm.collectionVariables.set(\"username\", req.username);",
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.have.status(\"OK\");",
+									"    pm.response.to.have.property(\"code\",200).to.be.a(\"number\");",
+									"    pm.expect(pm.response).to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Properties from body are correct\", function(){",
+									"    console.log(pm.response.json())",
+									"    pm.expect(pm.response.json().code).to.be.a('number')",
+									"    pm.expect(pm.response.json().type).to.be.a('string')",
+									"     pm.expect(pm.response.text()).to.include(\"type\");",
+									"})",
+									"",
+									"pm.test(\"Content-Type is present\", function(){",
+									"    pm.response.to.have.header(\"Content-Type\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2,\n  \"username\": \"karina\",\n  \"firstName\": \"Karina\",\n  \"lastName\": \"Yamashita\",\n  \"email\": \"karina@email.com\",\n  \"password\": \"1234ab\",\n  \"phone\": \"999999999\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_environment}}/user",
+							"host": [
+								"{{base_url_environment}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"message\");",
+									"});",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"const schema = {",
+									"    \"type\": \"object\",",
+									"    properties: {",
+									"        \"code\": {\"type\": \"number\"},",
+									"        \"type\": {\"type\": \"string\"},",
+									"        \"message\": {\"type\": \"string\"}",
+									"    },",
+									"    required : [\"code\", \"type\", \"message\"]",
+									"};",
+									"pm.test(\"Schema is valid\", function(){",
+									"    pm.expect(pm.response.json()).to.have.jsonSchema(schema);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_environment}}/user/login?username=karina&password=1234ab",
+							"host": [
+								"{{base_url_environment}}"
+							],
+							"path": [
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "karina"
+								},
+								{
+									"key": "password",
+									"value": "1234ab"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_environment}}/user/login?username=karina&password=1234ab",
+									"host": [
+										"{{base_url_environment}}"
+									],
+									"path": [
+										"user",
+										"login"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "karina"
+										},
+										{
+											"key": "password",
+											"value": "1234ab"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 21:20:27 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, DELETE, PUT"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, api_key, Authorization"
+								},
+								{
+									"key": "X-Expires-After",
+									"value": "Mon Jan 02 22:20:27 UTC 2023"
+								},
+								{
+									"key": "X-Rate-Limit",
+									"value": "5000"
+								},
+								{
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"type\": \"unknown\",\n    \"message\": \"logged in user session:1672694427911\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get by user name",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get('base_url_environment')+'/user',",
+									"    method: 'POST',",
+									"    header: {'Content-type': 'application/json'},",
+									"    body:{",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({",
+									"            \"id\": 2,",
+									"            \"username\": \"karina\",",
+									"            \"firstName\": \"Karina\",",
+									"            \"lastName\": \"Yamashita\",",
+									"            \"email\": \"karina@email.com\",",
+									"            \"password\": \"1234ab\",",
+									"            \"phone\": \"999999999\",",
+									"            \"userStatus\": 0",
+									"        })",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    const responseJdson = pm.response.json();",
+									"    console.log(responseJdson)",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(responseJdson).to.have.property('phone')",
+									"});",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header('Content-Type', 'application/json');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_environment}}/user/karina",
+							"host": [
+								"{{base_url_environment}}"
+							],
+							"path": [
+								"user",
+								"karina"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get by user name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_environment}}/user/karina",
+									"host": [
+										"{{base_url_environment}}"
+									],
+									"path": [
+										"user",
+										"karina"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 21:24:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, DELETE, PUT"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, api_key, Authorization"
+								},
+								{
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"username\": \"karina\",\n    \"firstName\": \"Karina\",\n    \"lastName\": \"Yamashita\",\n    \"email\": \"karina@email.com\",\n    \"password\": \"1234ab\",\n    \"phone\": \"999999999\",\n    \"userStatus\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete by user name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.get(\"username\");",
+									"",
+									"",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.collectionVariables.get(\"username\"))",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_environment}}/user/{{username}}",
+							"host": [
+								"{{base_url_environment}}"
+							],
+							"path": [
+								"user",
+								"{{username}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete by user name",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_environment}}/user/karina",
+									"host": [
+										"{{base_url_environment}}"
+									],
+									"path": [
+										"user",
+										"karina"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 21:25:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, DELETE, PUT"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, api_key, Authorization"
+								},
+								{
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"type\": \"unknown\",\n    \"message\": \"karina\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "Add Pet to the store",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var req = JSON.parse(request.data)",
+									"console.log(req.username)",
+									"pm.collectionVariables.set(\"username\", req.username);",
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.have.status(\"OK\");",
+									"    pm.response.to.have.property(\"code\",200).to.be.a(\"number\");",
+									"    pm.expect(pm.response).to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Properties from body are correct\", function(){",
+									"    console.log(pm.response.json())",
+									"    pm.expect(pm.response.json().id).to.be.a('number')",
+									"    pm.expect(pm.response.json().name).to.be.a('string')",
+									"     pm.expect(pm.response.text()).to.include(\"photoUrls\");",
+									"})",
+									"",
+									"pm.test(\"Content-Type is present\", function(){",
+									"    pm.response.to.have.header(\"Content-Type\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2,\n  \"category\": {\n    \"id\": 2,\n    \"name\": \"Karina\"\n  },\n  \"name\": \"Madonna\",\n  \"photoUrls\": [\n    \"https://post.healthline.com/wp-content/uploads/2020/08/3180-Pug_green_grass-732x549-thumbnail-732x549.jpg\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 2,\n      \"name\": \"Karina\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_collection}}/pet",
+							"host": [
+								"{{base_url_collection}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update PET",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get('base_url_environment')+'/user',",
+									"    method: 'POST',",
+									"    header: {'Content-type': 'application/json'},",
+									"    body:{",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({",
+									"            \"id\": 2,",
+									"            \"username\": \"karina\",",
+									"            \"firstName\": \"Karina\",",
+									"            \"lastName\": \"Yamashita\",",
+									"            \"email\": \"karina@email.com\",",
+									"            \"password\": \"1234ab\",",
+									"            \"phone\": \"999999999\",",
+									"            \"userStatus\": 0",
+									"        })",
+									"    }",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var req = JSON.parse(request.data)",
+									"console.log(req.username)",
+									"pm.collectionVariables.set(\"username\", req.username);",
+									"pm.test(\"Status code is 200\", function(){",
+									"    pm.response.to.have.status(200);",
+									"    pm.response.to.have.status(\"OK\");",
+									"    pm.response.to.have.property(\"code\",200).to.be.a(\"number\");",
+									"    pm.expect(pm.response).to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Properties from body are correct\", function(){",
+									"    console.log(pm.response.json())",
+									"    pm.expect(pm.response.json().id).to.be.a('number')",
+									"    pm.expect(pm.response.json().name).to.be.a('string')",
+									"     pm.expect(pm.response.text()).to.include(\"photoUrls\");",
+									"})",
+									"",
+									"pm.test(\"Content-Type is present\", function(){",
+									"    pm.response.to.have.header(\"Content-Type\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": 2,\n  \"category\": {\n    \"id\": 2,\n    \"name\": \"Karina\"\n  },\n  \"name\": \"Caramelo\",\n  \"photoUrls\": [\n    \"https://post.healthline.com/wp-content/uploads/2020/08/3180-Pug_green_grass-732x549-thumbnail-732x549.jpg\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 2,\n      \"name\": \"Karina\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_environment}}/pet",
+							"host": [
+								"{{base_url_environment}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get by user name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_environment}}/user/karina",
+									"host": [
+										"{{base_url_environment}}"
+									],
+									"path": [
+										"user",
+										"karina"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 21:24:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, DELETE, PUT"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, api_key, Authorization"
+								},
+								{
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"username\": \"karina\",\n    \"firstName\": \"Karina\",\n    \"lastName\": \"Yamashita\",\n    \"email\": \"karina@email.com\",\n    \"password\": \"1234ab\",\n    \"phone\": \"999999999\",\n    \"userStatus\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete a Pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.get(\"username\");",
+									"",
+									"",
+									"pm.test(\"Status code name has string\", function () {",
+									"    pm.response.to.have.status(\"OK\");",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.collectionVariables.get(\"petId\"))",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_environment}}/pet/{{petId}}",
+							"host": [
+								"{{base_url_environment}}"
+							],
+							"path": [
+								"pet",
+								"{{petId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete by user name",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url_environment}}/user/karina",
+									"host": [
+										"{{base_url_environment}}"
+									],
+									"path": [
+										"user",
+										"karina"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 02 Jan 2023 21:25:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, DELETE, PUT"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, api_key, Authorization"
+								},
+								{
+									"key": "Server",
+									"value": "Jetty(9.2.9.v20150224)"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 200,\n    \"type\": \"unknown\",\n    \"message\": \"karina\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{api-key}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url_collection",
+			"value": "https://petstore.swagger.io/v2",
+			"type": "string"
+		},
+		{
+			"key": "api-key",
+			"value": "special-key",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "karina"
+		},
+		{
+			"key": "petId",
+			"value": "2",
+			"type": "string"
+		}
+	]
+}
