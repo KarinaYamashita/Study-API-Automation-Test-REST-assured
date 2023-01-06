@@ -43,7 +43,7 @@ Para o desenvolvimento deste projeto a estrutura de diretórios é:
 
 Utilizando o Terminal/Console:
 
-1. Clone o projeto : `git clone https://github.com/KarinaYamashita/automation-practice-selenium.git`
+1. Clone o projeto : `git clone https://github.com/KarinaYamashita/Study-API-Automation-Test-REST-assured.git`
 
 2. Acesse a pasta raiz do projeto
 
