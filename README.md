@@ -1,6 +1,6 @@
 # Automação de testes com REST-assured e Java :dog:
 
-Esse repositório contém uma palicação para testes de performace da API : **[PetStore](https://petstore.swagger.io/)**, disponibilizada para a prática de teste pela Swagger. A aplicação foi desenvolvida em Java, utilizando o Java DSL REST Assured, empregando BDD. 
+Esse repositório contém uma aplicação para testes de performance da API : **[PetStore](https://petstore.swagger.io/)**, disponibilizada para a prática de teste pela Swagger. A aplicação foi desenvolvida em Java, utilizando o Java DSL REST Assured, empregando BDD. 
 
 ## Features
 
